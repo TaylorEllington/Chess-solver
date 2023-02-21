@@ -1,4 +1,4 @@
-#include "include/move-generator/move-generator.h"
+#include "move-generator.h"
 
 #include <math.h>
 

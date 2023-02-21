@@ -1,6 +1,6 @@
 #pragma once
-#include "board-utils/position.h"
-#include "board-utils/board-utils.h"
+#include "position.h"
+#include "board-utils.h"
 #include <vector>
 
 

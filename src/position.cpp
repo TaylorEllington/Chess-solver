@@ -1,4 +1,4 @@
-#include "include/board-utils/position.h"
+#include "position.h"
 
 
 Piece charToPiece(const char c){

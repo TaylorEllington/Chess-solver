@@ -1,4 +1,4 @@
-#include "include/board-utils/board-utils.h"
+#include "board-utils.h"
 
 #include <sstream>
 #include <iostream>
