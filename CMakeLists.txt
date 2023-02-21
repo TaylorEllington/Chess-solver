@@ -11,14 +11,27 @@ option(CODE_COVERAGE "Turns on special behavior for building code coverage versi
 
 if(CODE_COVERAGE)
     # we need gcode and gcc, so lets make sure they are around
-    if( CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
-        message(FATAL_ERROR "Must run code coverage builds on gcc, with gcov installed")
+    if( NOT CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+        # message(FATAL_ERROR "Must run code coverage builds on gcc, with gcov installed")
     endif()
 
     find_program(GCOV_BIN gcov)
-    if(NOT gcov_FOUND)
-        message(FATAL_ERROR "Must run code coverage builds on platform with gcov installed")
+
+    if(NOT GCOV_BIN)
+        # message(FATAL_ERROR "Must run code coverage builds on platform with gcov installed")
     endif()
+
+    # turn on compile flags needed for gcov
+    SET(GCC_COVERAGE_COMPILE_FLAGS "-coverage -fprofile-arcs -ftest-coverage -fPIC -O0")
+    SET(GCC_COVERAGE_LINK_FLAGS    "-lgcov")
+    set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)
+
+    SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_COVERAGE_COMPILE_FLAGS}")
+    SET(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_COVERAGE_LINK_FLAGS}")
+
+    # Create OBJECT_DIR variable
+    set(OBJECT_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/chess-solver.dir)
+    message("-- Object files will be output to: ${OBJECT_DIR}")
 
 endif()
 
@@ -35,8 +48,7 @@ FetchContent_MakeAvailable(googletest)
 enable_testing()
 include(GoogleTest)
 
-# Add third-party libraries
-# add_subdirectory(third-party)
-
 # Add project source code
+
+
 add_subdirectory(src)
