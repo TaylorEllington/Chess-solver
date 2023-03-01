@@ -33,9 +33,8 @@ namespace board_utils{
     }
     bool isOccupied(Position pos, BoardState board){
         
-        size_t count = board.count(pos);
-
-        if(count == 0){
+        auto otherPiece = board.find(pos);
+        if(otherPiece == board.end()){
             return false;
         }
 
@@ -43,20 +42,11 @@ namespace board_utils{
         
     }
     bool isOccupiedByEnemy(Position pos, BoardState board){
-        size_t count = board.count(pos);
-
-
-        if(count == 0){
-            return false;
-        }
 
         auto otherPiece = board.find(pos);
-        if(pos.color == otherPiece->color){
+        if(otherPiece == board.end() || pos.color == otherPiece->color){
             return false;
         }
-
-            // if(auto otherPiece = board.find(pos); *otherPiece. )
-
         return true;
     }
     bool isValidPosition(Position pos){
