@@ -36,8 +36,6 @@ struct Position{
     PieceColor color;
 
     Position();
-    Position(uint8_t r, uint8_t f);
-
     Position(std::string str, PieceColor color);
 
     bool operator==(const Position& other) const {

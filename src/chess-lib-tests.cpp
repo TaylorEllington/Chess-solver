@@ -4,6 +4,20 @@
 #include "move-generator.h"
 
 
+TEST(PositionTests, PositionEquality){
+
+  Position a ("Pa1", PieceColor::BLACK);
+  Position b ("Pa1", PieceColor::BLACK);
+  Position c ("Pb1", PieceColor::BLACK);
+  Position d ("Pa2", PieceColor::BLACK);
+  Position e ("Pb2", PieceColor::BLACK);
+
+  EXPECT_TRUE(a == b);
+  EXPECT_FALSE(a == c);
+  EXPECT_FALSE( a == d);
+  EXPECT_FALSE( a == e);
+
+}
 
 
 TEST(BoardUtilitiesTests, ValidBoardPosition) {
@@ -42,7 +56,6 @@ TEST(BoardUtilitiesTests, PositionConstructorFromString) {
   EXPECT_EQ(posFromGoodString2.piece, Piece::KNIGHT);
   EXPECT_EQ(posFromGoodString2.color, PieceColor::BLACK);
 }
-
 
 TEST(BoardUtilitiesTests, PositionConstructorFromBadStrings) {
   using namespace board_utils;
@@ -224,3 +237,22 @@ TEST(MovementGeneratorTests, KingCheckRules) {
   EXPECT_EQ(1, 1);
 }
 
+TEST(MovementGeneratorTests, StartingBoardTests){
+  BoardState board = board_utils::BuildBoardFromString("Pa2 Pb2 Pc2 Pd2 Pe2 Pf2 Pg2 Ph2 Ra1 Nb1 Bc1 Qd1 Ke1 Bf1 Ng1 Rh1 ","");
+
+  Position king("Ke1", PieceColor::WHITE);
+  std::vector<Position> kingMoves = move_generator::GenerateKingMoves(king, board);
+  EXPECT_EQ(kingMoves.size(), 0);
+
+  Position rook("Ra1", PieceColor::WHITE);
+  std::vector<Position> rookMoves = move_generator::GenerateRookMoves(rook, board);
+  EXPECT_EQ(rookMoves.size(), 0);
+
+  Position Knight("Nb1", PieceColor::WHITE);
+  std::vector<Position> KnightMoves = move_generator::GenerateKnightMoves(Knight, board);
+  EXPECT_EQ(KnightMoves.size(), 2);
+
+  Position bishop("Bc1", PieceColor::WHITE);
+  std::vector<Position> bishopMoves = move_generator::GenerateBishiopMoves(bishop, board);
+  EXPECT_EQ(bishopMoves.size(), 0);
+}

@@ -2,86 +2,128 @@
 
 
 Piece charToPiece(const char c){
+
+    Piece p = Piece::NO_PEICE;
+
     switch(c){
         case 'P':
-            return Piece::PAWN;
+            p = Piece::PAWN;
+            break;
         case 'R':
-            return Piece::ROOK;
+            p = Piece::ROOK;
+            break;
         case 'N':
-            return Piece::KNIGHT;
+            p = Piece::KNIGHT;
+            break;
         case 'B':
-            return Piece::BISHOP;
+            p = Piece::BISHOP;
+            break;
         case 'Q':
-            return Piece::QUEEN;
+            p = Piece::QUEEN;
+            break;
         case 'K':
-            return Piece::KING;
+            p = Piece::KING;
+            break;
     }
+
+    return p;
 };
 
 uint8_t charToFile(const char c){
+    uint8_t i = 0;
+
     switch(c){
         case 'a':
-            return 1;
+            i = 1;
+            break;
         case 'b':
-            return 2;
+            i = 2;
+            break;
         case 'c':
-            return 3;
+            i = 3;
+            break;
         case 'd':
-            return 4;
+            i = 4;
+            break;
         case 'e':
-            return 5;
+            i = 5;
+            break;
         case 'f':
-            return 6;
+            i = 6;
+            break;
         case 'g':
-            return 7;
+            i = 7;
+            break;
         case 'h':
-            return 8;
+            i = 8;
+            break;
     }
+
+    return i;
 };
 
 char pieceToChar(const Piece p){
+    char c = 'X';
+
     switch(p){
         case Piece::PAWN:
-            return 'P';
+            c = 'P';
+            break;
         case Piece::ROOK:
-            return 'R';
+            c = 'R';
+            break;
         case Piece::KNIGHT:
-            return 'N';
+            c = 'N';
+            break;
         case Piece::BISHOP:
-            return 'B';
+            c = 'B';
+            break;
         case Piece::QUEEN:
-            return 'Q';
+            c = 'Q';
+            break;
         case Piece::KING:
-            return 'K';
+            c = 'K';
+            break;
+        case Piece::NO_PEICE:
+            c = 'X';
+            break;
     }
+    return c;
 }
 
 char fileToChar(uint8_t f){
+    char c = 'x';
     switch(f){
         case 1:
-            return 'a';
+            c = 'a';
+            break;
         case 2:
-            return 'b';
+            c = 'b';
+            break;
         case 3:
-            return 'c';
+            c = 'c';
+            break;
         case 4:
-            return 'd';
+            c = 'd';
+            break;
         case 5:
-            return 'e';
+            c = 'e';
+            break;
         case 6:
-            return 'f';
+            c = 'f';
+            break;
         case 7:
-            return 'g';
+            c = 'g';
+            break;
         case 8:
-            return 'h';
+            c = 'h';
+            break;
     }
+
+    return c;
 };
 
 Position::Position(){}
-Position::Position(uint8_t r, uint8_t f){
-        rank = r;
-        file = f;
-    }
 
 Position::Position(std::string str, PieceColor color){
         // we have no guarantee the string is a 3 letter notation. it could contain extra leading or trailing spaces
@@ -108,8 +150,6 @@ Position::Position(std::string str, PieceColor color){
                     rank = c - '0';
                     parsedValues++;
                     continue;
-                default:
-                    return;
             }
             
         }
