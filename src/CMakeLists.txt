@@ -35,10 +35,6 @@ if(GCC_STATIC_ANALYSIS)
         PRIVATE ${GCC_STATIC_ANALYSIS_FLAGS}
     )
     
-    target_compile_options(chess-lib-tests 
-        PRIVATE ${GCC_STATIC_ANALYSIS_FLAGS}
-    )
-
     target_compile_options(chess-solver 
         PRIVATE ${GCC_STATIC_ANALYSIS_FLAGS}
     )
