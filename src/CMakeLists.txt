@@ -10,6 +10,12 @@ set(CHESS_LIB_SRC
 
 add_library(chess-lib STATIC ${CHESS_LIB_SRC})
 
+if(GCC_STATIC_ANALYSIS)
+    target_compile_options(chess-lib 
+        PRIVATE ${GCC_STATIC_ANALYSIS_FLAGS}
+    ) 
+endif()
+
 add_executable(chess-solver
         main.cpp
 )

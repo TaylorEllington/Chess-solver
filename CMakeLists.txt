@@ -10,7 +10,6 @@ include(BuildOptions.cmake)
 
 if(GCC_STATIC_ANALYSIS)
     SET(GCC_STATIC_ANALYSIS_FLAGS "-fanalyzer")
-    SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_STATIC_ANALYSIS_FLAGS}")
 endif()
 
 
