@@ -6,10 +6,15 @@ if(POLICY CMP0135)
     set(CMAKE_POLICY_DEFAULT_CMP0135 NEW)
 endif()
 
-option(CODE_COVERAGE "Turns on special behavior for building code coverage versions of binaries, and running the scan" OFF)
+include(BuildOptions.cmake)
+
+if(GCC_STATIC_ANALYSIS)
+    SET(GCC_STATIC_ANALYSIS_FLAGS "-fanalyzer")
+    SET(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_STATIC_ANALYSIS_FLAGS}")
+endif()
 
 
-if(CODE_COVERAGE)
+if(GCC_CODE_COVERAGE)
     # we need gcode and gcc, so lets make sure they are around
     if( NOT CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         # message(FATAL_ERROR "Must run code coverage builds on gcc, with gcov installed")
@@ -32,6 +37,24 @@ if(CODE_COVERAGE)
     # Create OBJECT_DIR variable
     set(OBJECT_DIR ${CMAKE_BINARY_DIR}/CMakeFiles/chess-solver.dir)
     message("-- Object files will be output to: ${OBJECT_DIR}")
+
+    add_custom_target(
+        code-cov-report
+        #OUTPUT "code_coverage_report/index.html"
+        COMMAND gcov -b -r -s ${PROJECT_SOURCE_DIR} src/chess-lib-tests.cpp -o ${PROJECT_BINARY_DIR}/src/CMakeFiles/chess-lib-tests.dir/
+        COMMAND lcov -c  --directory ${PROJECT_SOURCE_DIR} 
+            --output-file unfiltered.info 
+            --rc lcov_branch_coverage=1 --no-external
+        COMMAND lcov -r unfiltered.info 
+            '${PROJECT_BINARY_DIR}/_deps/googletest-src/googletest/*' 
+            '${PROJECT_BINARY_DIR}/_deps/googletest-src/googlemock/include/gmock/*' 
+            '${PROJECT_SOURCE_DIR}/src/chess-lib-tests.cpp'  
+            -o filtered.info 
+            --rc lcov_branch_coverage=1
+        COMMAND genhtml filtered.info  
+            --output-directory code_coverage_report
+            --rc genhtml_branch_coverage=1
+     )
 
 endif()
 
