@@ -63,9 +63,31 @@ FetchContent_Declare(
     DOWNLOAD_EXTRACT_TIMESTAMP
     URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
 )
+
+# FetchContent_Declare(
+#     cppcheck
+#     DOWNLOAD_EXTRACT_TIMESTAMP
+#     URL  https://github.com/danmar/cppcheck/archive/refs/tags/2.10.zip
+# )
+
+include(ExternalProject)
+ExternalProject_Add(
+    cppcheck
+    EXCLUDE_FROM_ALL true
+    URL  https://github.com/danmar/cppcheck/archive/refs/tags/2.10.zip
+    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/_staticscanner
+    INSTALL_COMMAND ${CMAKE_COMMAND} --install ${PROJECT_BINARY_DIR}/cppcheck-prefix/src/cppcheck-build --prefix ${PROJECT_SOURCE_DIR}/_staticscanner --config $<CONFIG> --component applications
+)
+
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
+
+set(TEMP ${CMAKE_SOURCE_DIR})
+# set(CMAKE_SOURCE_DIR "${CMAKE_BINARY_DIR}/_deps/cppcheck-src/" )
+# FetchContent_MakeAvailable(cppcheck)
+
+# set(CMAKE_SOURCE_DIR ${TEMP})
 
 enable_testing()
 include(GoogleTest)
