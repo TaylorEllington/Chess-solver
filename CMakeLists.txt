@@ -51,7 +51,7 @@ if(GCC_CODE_COVERAGE)
             -o filtered.info 
             --rc lcov_branch_coverage=1
         COMMAND genhtml filtered.info  
-            --output-directory code_coverage_report
+            --output-directory ${PROJECT_SOURCE_DIR}/code_coverage_report
             --rc genhtml_branch_coverage=1
      )
 
