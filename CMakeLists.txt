@@ -13,6 +13,8 @@ if(GCC_STATIC_ANALYSIS)
 endif()
 
 
+set(CMAKE_INSTALL_PREFIX  ${PROJECT_SOURCE_DIR}/install)
+
 if(GCC_CODE_COVERAGE)
     # we need gcode and gcc, so lets make sure they are around
     if( NOT CMAKE_CXX_COMPILER_ID STREQUAL "GNU")

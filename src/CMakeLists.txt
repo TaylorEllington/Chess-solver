@@ -24,6 +24,8 @@ add_executable( chess-lib-tests
     chess-lib-tests.cpp
 )
 
+install(TARGETS chess-solver)
+
 target_link_libraries( chess-lib-tests
     chess-lib
     gtest_main
