@@ -70,6 +70,12 @@ FetchContent_Declare(
 #     URL  https://github.com/danmar/cppcheck/archive/refs/tags/2.10.zip
 # )
 
+if(LINUX)
+    set(STATIC_SCANNER_CFG_BUILD ${PROJECT_BINARY_DIR}/cppcheck-prefix/src/cppcheck-build/bin/cfg/)
+else()
+    set(STATIC_SCANNER_CFG_BUILD ${PROJECT_BINARY_DIR}/cppcheck-prefix/src/cppcheck-build/bin/Debug/cfg/)
+endif()
+
 include(ExternalProject)
 ExternalProject_Add(
     cppcheck
@@ -77,7 +83,7 @@ ExternalProject_Add(
     URL  https://github.com/danmar/cppcheck/archive/refs/tags/2.10.zip
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/_staticscanner
     INSTALL_COMMAND ${CMAKE_COMMAND} --install ${PROJECT_BINARY_DIR}/cppcheck-prefix/src/cppcheck-build --prefix ${PROJECT_SOURCE_DIR}/_staticscanner --config $<CONFIG> --component applications
-    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_BINARY_DIR}/cppcheck-prefix/src/cppcheck-build/bin/Debug/cfg/ ${PROJECT_SOURCE_DIR}/_staticscanner/share/Cppcheck/cfg/
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${STATIC_SCANNER_CFG_BUILD} ${PROJECT_SOURCE_DIR}/_staticscanner/share/Cppcheck/cfg/
 )
 
 if(LINUX)
