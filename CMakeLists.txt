@@ -18,7 +18,7 @@ if(GCC_CODE_COVERAGE)
     if( NOT CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
         # message(FATAL_ERROR "Must run code coverage builds on gcc, with gcov installed")
     endif()
-
+    
     find_program(GCOV_BIN gcov)
 
     if(NOT GCOV_BIN)
@@ -77,7 +77,25 @@ ExternalProject_Add(
     URL  https://github.com/danmar/cppcheck/archive/refs/tags/2.10.zip
     CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${PROJECT_SOURCE_DIR}/_staticscanner
     INSTALL_COMMAND ${CMAKE_COMMAND} --install ${PROJECT_BINARY_DIR}/cppcheck-prefix/src/cppcheck-build --prefix ${PROJECT_SOURCE_DIR}/_staticscanner --config $<CONFIG> --component applications
+    COMMAND ${CMAKE_COMMAND} -E copy_directory ${PROJECT_BINARY_DIR}/cppcheck-prefix/src/cppcheck-build/bin/Debug/cfg/ ${PROJECT_SOURCE_DIR}/_staticscanner/share/Cppcheck/cfg/
 )
+
+if(LINUX)
+    set(STATIC_SCANNER_EXE ${PROJECT_SOURCE_DIR}/_staticscanner/bin/cppcheck)
+else()
+    set(STATIC_SCANNER_EXE ${PROJECT_SOURCE_DIR}/_staticscanner/bin/cppcheck.exe)
+endif()
+
+string(TIMESTAMP TODAY "%Y%m%d-%H%M")
+set(REPORT_NAME "${TODAY}-Report.txt")
+
+add_custom_target(
+    run-scans
+    DEPENDS cppcheck
+    COMMAND ${STATIC_SCANNER_EXE} src/  --enable=all --output-file=${REPORT_NAME} 
+    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+)
+
 
 # For Windows: Prevent overriding the parent project's compiler/linker settings
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
