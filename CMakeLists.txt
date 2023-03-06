@@ -28,7 +28,7 @@ if(GCC_CODE_COVERAGE)
     endif()
 
     # turn on compile flags needed for gcov
-    SET(GCC_COVERAGE_COMPILE_FLAGS "-coverage -fprofile-arcs -ftest-coverage -fPIC -O0")
+    SET(GCC_COVERAGE_COMPILE_FLAGS "-coverage -fprofile-arcs -ftest-coverage -fno-exceptions -fno-inline -fPIC -O0")
     SET(GCC_COVERAGE_LINK_FLAGS    "-lgcov")
     set(CMAKE_CXX_OUTPUT_EXTENSION_REPLACE ON)
 
