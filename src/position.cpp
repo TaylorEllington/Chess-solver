@@ -24,6 +24,8 @@ Piece charToPiece(const char c){
         case 'K':
             p = Piece::KING;
             break;
+        default:
+            break;
     }
 
     return p;
@@ -56,6 +58,8 @@ uint8_t charToFile(const char c){
             break;
         case 'h':
             i = 8;
+            break;
+        default:
             break;
     }
 
@@ -117,6 +121,8 @@ char fileToChar(uint8_t f){
             break;
         case 8:
             c = 'h';
+            break;
+        default:
             break;
     }
 

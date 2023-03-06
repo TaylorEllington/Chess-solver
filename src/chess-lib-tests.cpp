@@ -3,6 +3,42 @@
 #include "board-utils.h"
 #include "move-generator.h"
 
+TEST(PositionTests, CharToPieceUtilityTest){
+  EXPECT_EQ(charToPiece('P'), Piece::PAWN);
+  EXPECT_EQ(charToPiece('R'), Piece::ROOK);
+  EXPECT_EQ(charToPiece('N'), Piece::KNIGHT);
+  EXPECT_EQ(charToPiece('B'), Piece::BISHOP);
+  EXPECT_EQ(charToPiece('Q'), Piece::QUEEN);
+  EXPECT_EQ(charToPiece('K'), Piece::KING);
+  EXPECT_EQ(charToPiece('a'), Piece::NO_PEICE);
+  EXPECT_EQ(charToPiece('d'), Piece::NO_PEICE);
+  EXPECT_EQ(charToPiece('z'), Piece::NO_PEICE);
+}
+
+TEST(PositionTests, CharToFileUtilityTest){
+  EXPECT_EQ(charToFile('a'), 1);
+  EXPECT_EQ(charToFile('b'), 2);
+  EXPECT_EQ(charToFile('c'), 3);
+  EXPECT_EQ(charToFile('d'), 4);
+  EXPECT_EQ(charToFile('e'), 5);
+  EXPECT_EQ(charToFile('f'), 6);
+  EXPECT_EQ(charToFile('g'), 7);
+  EXPECT_EQ(charToFile('h'), 8);
+  EXPECT_EQ(charToFile('z'), 0);
+}
+
+TEST(PositionTests, FileToCharUtilityTest){
+  EXPECT_EQ(fileToChar(1), 'a');
+  EXPECT_EQ(fileToChar(2), 'b');
+  EXPECT_EQ(fileToChar(3), 'c');
+  EXPECT_EQ(fileToChar(4), 'd');
+  EXPECT_EQ(fileToChar(5), 'e');
+  EXPECT_EQ(fileToChar(6), 'f');
+  EXPECT_EQ(fileToChar(7), 'g');
+  EXPECT_EQ(fileToChar(8), 'h');
+  EXPECT_EQ(fileToChar(0), 'x');
+
+}
 
 TEST(PositionTests, PositionEquality){
 
