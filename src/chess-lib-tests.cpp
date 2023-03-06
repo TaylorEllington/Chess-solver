@@ -241,6 +241,13 @@ TEST(MovementGeneratorTests, RookCenterEmptyBoard) {
 
 }
 
+TEST(MovementGeneratorTests, RookBlockedIn) {
+  Position pieceToMove("Re4", PieceColor::WHITE);
+  BoardState board = board_utils::BuildBoardFromString("Ke3 Pe5 Pd4 Pf4", "");
+  std::vector<Position> moves = move_generator::GenerateRookMoves(pieceToMove, board);
+  EXPECT_EQ(moves.size(), 0);
+}
+
 TEST(MovementGeneratorTests, RookCapture) {
   Position pieceToMove("Re4", PieceColor::WHITE);
   BoardState board = board_utils::BuildBoardFromString("","Ke3 Pe6 Pc4 Pf4");
@@ -321,6 +328,13 @@ TEST(MovementGeneratorTests, BishopCenterEmptyBoard) {
   EXPECT_THAT(compiledMoves, HasSubstr("Ba8"));
 }
 
+TEST(MovementGeneratorTests, BishopBlockedIn) {
+  Position pieceToMove("Be4", PieceColor::WHITE);
+  BoardState board = board_utils::BuildBoardFromString("Kd5 Pf3 Pd3 Pf5", "");
+  std::vector<Position> moves = move_generator::GenerateBishiopMoves(pieceToMove, board);
+  EXPECT_EQ(moves.size(), 0);
+}
+
 TEST(MovementGeneratorTests, BishopCapture) {
   Position pieceToMove("Be4", PieceColor::WHITE);
   BoardState board = board_utils::BuildBoardFromString("","Kd5 Pf3 Pd3 Pf5");
@@ -337,7 +351,6 @@ TEST(MovementGeneratorTests, BishopCapture) {
   EXPECT_THAT(compiledMoves, HasSubstr("Bxd3"));
   EXPECT_THAT(compiledMoves, HasSubstr("Bxf5"));
 }
-
 
 TEST(MovementGeneratorTests, QueenCenterEmptyBoard) {
   Position pieceToMove("Qe4", PieceColor::WHITE);
