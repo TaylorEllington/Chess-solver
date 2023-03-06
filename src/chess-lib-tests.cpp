@@ -111,14 +111,15 @@ TEST(MovementGeneratorTests, PawnOtherPositionWhite) {
 
 TEST(MovementGeneratorTests, PawnCaptureWhite) {
   Position pieceToMove("Pe3", PieceColor::WHITE);
-  BoardState board = board_utils::BuildBoardFromString("Pd4","Pf4");
+  BoardState board = board_utils::BuildBoardFromString("", "Pd4 Pf4");
   std::vector<Position> moves = move_generator::GeneratePawnMoves(pieceToMove, board);
 
-  EXPECT_EQ(moves.size() , 2);
+  EXPECT_EQ(moves.size() , 3);
 
   std::string compiledMoves = board_utils::joinAllMoves( board_utils::movesToStrings(moves));
   using ::testing::HasSubstr;
   EXPECT_THAT(compiledMoves, HasSubstr("Pxf4"));
+  EXPECT_THAT(compiledMoves, HasSubstr("Pxd4"));
 }
 
 TEST(MovementGeneratorTests, PawnStartingRankBlack) {
@@ -194,13 +195,17 @@ TEST(MovementGeneratorTests, RookCenterEmptyBoard) {
 
 TEST(MovementGeneratorTests, RookCapture) {
   Position pieceToMove("Re4", PieceColor::WHITE);
-  BoardState board = board_utils::BuildBoardFromString("","Ke3");
+  BoardState board = board_utils::BuildBoardFromString("","Ke3 Pe6 Pc4 Pf4");
   std::vector<Position> moves = move_generator::GenerateRookMoves(pieceToMove, board);
-  EXPECT_EQ(moves.size(), 12);
+  EXPECT_EQ(moves.size(), 6);
 
   std::string compiledMoves = board_utils::joinAllMoves( board_utils::movesToStrings(moves));
   using ::testing::HasSubstr;
   EXPECT_THAT(compiledMoves, HasSubstr("Rxe3"));
+  EXPECT_THAT(compiledMoves, HasSubstr("Rxe6"));
+  EXPECT_THAT(compiledMoves, HasSubstr("Rxc4"));
+  EXPECT_THAT(compiledMoves, HasSubstr("Rxf4"));
+
 }
 
 TEST(MovementGeneratorTests, KnightCenterEmptyBoard) {
@@ -270,9 +275,9 @@ TEST(MovementGeneratorTests, BishopCenterEmptyBoard) {
 
 TEST(MovementGeneratorTests, BishopCapture) {
   Position pieceToMove("Be4", PieceColor::WHITE);
-  BoardState board = board_utils::BuildBoardFromString("","Kd5");
+  BoardState board = board_utils::BuildBoardFromString("","Kd5 Pf3 Pd3 Pf5");
   std::vector<Position> moves = move_generator::GenerateBishiopMoves(pieceToMove, board);
-  EXPECT_EQ(moves.size(), 10);
+  EXPECT_EQ(moves.size(), 4);
 
   std::vector<std::string> strs = board_utils::movesToStrings(moves);
   std::string compiledMoves = board_utils::joinAllMoves(strs);
@@ -280,6 +285,9 @@ TEST(MovementGeneratorTests, BishopCapture) {
   using ::testing::HasSubstr;
   // only need to test that the capture move is valid
   EXPECT_THAT(compiledMoves, HasSubstr("Bxd5"));
+  EXPECT_THAT(compiledMoves, HasSubstr("Bxf3"));
+  EXPECT_THAT(compiledMoves, HasSubstr("Bxd3"));
+  EXPECT_THAT(compiledMoves, HasSubstr("Bxf5"));
 }
 
 
