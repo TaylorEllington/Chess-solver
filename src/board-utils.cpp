@@ -2,7 +2,6 @@
 
 #include <sstream>
 #include <iostream>
-#include <exception>
 namespace board_utils{
     BoardState BuildBoardFromString(std::string WhitePiecesString, std::string BlackPiecesString){
         std::stringstream wss(WhitePiecesString);
@@ -14,7 +13,8 @@ namespace board_utils{
         while(wss >> word){
             Position pos(word, PieceColor::WHITE);
             if(board.find(pos) != board.end()){
-                throw std::runtime_error("Invalid board state provided, each square can hold one piece, each piece should only be listed once in notation");
+                std::cout << "Invalid board state provided, each square can hold one piece, each piece should only be listed once in notation" << std::endl;
+                exit(1);
             }
 
             board.insert(pos);
@@ -23,7 +23,8 @@ namespace board_utils{
         while(bss >> word){
             Position pos(word, PieceColor::BLACK);
             if(board.find(pos) != board.end()){
-                throw std::runtime_error("Invalid board state provided, each square can hold one piece, each piece should only be listed once in notation");
+                std::cout << "Invalid board state provided, each square can hold one piece, each piece should only be listed once in notation" << std::endl;
+                exit(1);
             }
             board.insert(pos);
         }
