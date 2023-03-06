@@ -89,7 +89,7 @@ char pieceToChar(const Piece p){
             c = 'K';
             break;
         case Piece::NO_PEICE:
-            c = 'X';
+        default:
             break;
     }
     return c;

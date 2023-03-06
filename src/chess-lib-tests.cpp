@@ -15,6 +15,18 @@ TEST(PositionTests, CharToPieceUtilityTest){
   EXPECT_EQ(charToPiece('z'), Piece::NO_PEICE);
 }
 
+TEST(PositionTests, PieceToCharUtilityTest){
+  EXPECT_EQ(pieceToChar(Piece::PAWN) , 'P');
+  EXPECT_EQ(pieceToChar(Piece::ROOK) , 'R');
+  EXPECT_EQ(pieceToChar(Piece::KNIGHT) , 'N');
+  EXPECT_EQ(pieceToChar(Piece::BISHOP) , 'B');
+  EXPECT_EQ(pieceToChar(Piece::QUEEN) , 'Q');
+  EXPECT_EQ(pieceToChar(Piece::KING) , 'K');
+  EXPECT_EQ(pieceToChar(Piece::NO_PEICE) , 'X');
+  EXPECT_EQ(pieceToChar(Piece::NO_PEICE) , 'X');
+  EXPECT_EQ(pieceToChar(Piece::NO_PEICE) , 'X');
+}
+
 TEST(PositionTests, CharToFileUtilityTest){
   EXPECT_EQ(charToFile('a'), 1);
   EXPECT_EQ(charToFile('b'), 2);
