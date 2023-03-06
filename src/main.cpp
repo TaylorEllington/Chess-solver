@@ -23,7 +23,7 @@ int main(int argc, char** argv){
     std::vector<char> fileContents(filesize + 1, '\0');
 
     inputFile.read(fileContents.data(), filesize);
-    std::remove(fileContents.begin(), fileContents.end(), ',');
+    fileContents.erase(std::remove(fileContents.begin(), fileContents.end(), ','), fileContents.end());
 
     auto firstLineTerminator = std::find(fileContents.begin(), fileContents.end(), '\n');
     auto secondLineTerminator = std::find(firstLineTerminator + 1, fileContents.end(), '\n');

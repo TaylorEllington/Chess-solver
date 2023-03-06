@@ -1,0 +1,62 @@
+src\board-utils.cpp:77:69: style: Parameter 'moves' can be declared as reference to const [constParameter]
+    std::vector<std::string> movesToStrings(std::vector<Position> & moves){
+                                                                    ^
+src\board-utils.cpp:81:25: style: Consider using std::transform algorithm instead of a raw loop. [useStlAlgorithm]
+            moveStrings.push_back(printAsMove(move));
+                        ^
+src\chess-lib-tests.cpp:185:33: style: Variable 'strs' is assigned a value that is never used. [unreadVariable]
+  std::vector<std::string> strs = board_utils::movesToStrings(moves);
+                                ^
+src\chess-lib-tests.cpp:236:31: style: Variable 'moves' is assigned a value that is never used. [unreadVariable]
+  std::vector<Position> moves = move_generator::GenerateKingMoves(pieceToMove, board);
+                              ^
+src\main.cpp:26:5: warning: Return value of std::remove() ignored. Elements remain in container. [uselessCallsRemove]
+    std::remove(fileContents.begin(), fileContents.end(), ',');
+    ^
+src\move-generator.cpp:170:44: error: Array 'moveTable[8]' accessed at index 8, which is out of bounds. [arrayIndexOutOfBounds]
+            potentialMove.rank += moveTable[ii].first;
+                                           ^
+src\move-generator.cpp:168:28: note: Assuming that condition 'ii<9' is not redundant
+        for(int ii = 0; ii < 9; ii++){
+                           ^
+src\move-generator.cpp:170:44: note: Array index out of bounds
+            potentialMove.rank += moveTable[ii].first;
+                                           ^
+src\move-generator.cpp:171:44: error: Array 'moveTable[8]' accessed at index 8, which is out of bounds. [arrayIndexOutOfBounds]
+            potentialMove.file += moveTable[ii].second;
+                                           ^
+src\move-generator.cpp:168:28: note: Assuming that condition 'ii<9' is not redundant
+        for(int ii = 0; ii < 9; ii++){
+                           ^
+src\move-generator.cpp:171:44: note: Array index out of bounds
+            potentialMove.file += moveTable[ii].second;
+                                           ^
+src\move-generator.cpp:309:44: error: Array 'moveTable[8]' accessed at index 8, which is out of bounds. [arrayIndexOutOfBounds]
+            potentialMove.rank += moveTable[ii].first;
+                                           ^
+src\move-generator.cpp:307:28: note: Assuming that condition 'ii<9' is not redundant
+        for(int ii = 0; ii < 9; ii++){
+                           ^
+src\move-generator.cpp:309:44: note: Array index out of bounds
+            potentialMove.rank += moveTable[ii].first;
+                                           ^
+src\move-generator.cpp:310:44: error: Array 'moveTable[8]' accessed at index 8, which is out of bounds. [arrayIndexOutOfBounds]
+            potentialMove.file += moveTable[ii].second;
+                                           ^
+src\move-generator.cpp:307:28: note: Assuming that condition 'ii<9' is not redundant
+        for(int ii = 0; ii < 9; ii++){
+                           ^
+src\move-generator.cpp:310:44: note: Array index out of bounds
+            potentialMove.file += moveTable[ii].second;
+                                           ^
+src\move-generator.cpp:285:71: performance: Function parameter 'board' should be passed by const reference. [passedByValue]
+    std::vector<Position> GenerateQueenMoves(Position pos, BoardState board){
+                                                                      ^
+nofile:0:0: information: Cppcheck cannot find all the include files (use --check-config for details) [missingInclude]
+
+
+Changes Made:
+
+all the move_generator functions now take the BoardState objects by const reference
+Fixed the erroneous use of std::remove
+board_utils moves to strings is now const correct

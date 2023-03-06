@@ -4,7 +4,7 @@
 
 namespace move_generator{
 
-    std::vector<Position> GeneratePawnMoves(Position pos, BoardState board){
+    std::vector<Position> GeneratePawnMoves(Position pos, BoardState const & board){
         std::vector<Position> moves;
         Position moveForward(pos);
         Position attackLeft(pos);
@@ -28,13 +28,17 @@ namespace move_generator{
                 // pawns capture diagonally
                 attackRight.rank++;
                 attackRight.file++;
-                if(board_utils::isOccupiedByEnemy(attackRight, board) && board_utils::isValidPosition(attackRight))
+                if(board_utils::isOccupiedByEnemy(attackRight, board) && board_utils::isValidPosition(attackRight)){
+                    attackRight.takes = true;
                     moves.push_back(attackRight);
+                }
 
                 attackLeft.rank++;
                 attackLeft.file--;
-                if(board_utils::isOccupiedByEnemy(attackLeft, board) && board_utils::isValidPosition(attackLeft))
+                if(board_utils::isOccupiedByEnemy(attackLeft, board) && board_utils::isValidPosition(attackLeft)){
+                    attackLeft.takes = true;
                     moves.push_back(attackLeft);
+                }
 
                 break;
             case PieceColor::BLACK:
@@ -52,20 +56,23 @@ namespace move_generator{
                 // pawns capture diagonally
                 attackRight.rank--;
                 attackRight.file++;
-                if(board_utils::isOccupiedByEnemy(attackRight, board) && board_utils::isValidPosition(attackRight))
+                if(board_utils::isOccupiedByEnemy(attackRight, board) && board_utils::isValidPosition(attackRight)){
+                    attackRight.takes = true;
                     moves.push_back(attackRight);
+                }
 
                 attackLeft.rank--;
                 attackLeft.file--;
-                if(board_utils::isOccupiedByEnemy(attackLeft, board) && board_utils::isValidPosition(attackLeft))
+                if(board_utils::isOccupiedByEnemy(attackLeft, board) && board_utils::isValidPosition(attackLeft)){
+                    attackLeft.takes = true;
                     moves.push_back(attackLeft);
-  
+                }
                 break;
         }
         return moves;
     }
 
-    std::vector<Position> GenerateRookMoves(Position pos, BoardState board){
+    std::vector<Position> GenerateRookMoves(Position pos, BoardState const & board){
         std::vector<Position> moves;
 
         for(int ii = pos.rank - 1; ii > 0; ii--){
@@ -155,7 +162,7 @@ namespace move_generator{
         return moves;
     }
 
-    std::vector<Position> GenerateKnightMoves(Position pos, BoardState board){
+    std::vector<Position> GenerateKnightMoves(Position pos, BoardState const & board){
         std::vector<Position> moves;
 
         std::pair<signed int, signed int> moveTable[] = {
@@ -165,7 +172,7 @@ namespace move_generator{
             {-1,  2}, {-2,  1},
         };
 
-        for(int ii = 0; ii < 9; ii++){
+        for(int ii = 0; ii < 8; ii++){
             Position potentialMove(pos);
             potentialMove.rank += moveTable[ii].first;
             potentialMove.file += moveTable[ii].second;
@@ -189,7 +196,7 @@ namespace move_generator{
         return moves;
     }
 
-    std::vector<Position> GenerateBishiopMoves(Position pos, BoardState board){
+    std::vector<Position> GenerateBishiopMoves(Position pos, BoardState const & board){
         std::vector<Position> moves;
 
         for(int ii = 1; ii <= std::min(8 - pos.file, 8 - pos.rank); ii++){
@@ -282,7 +289,7 @@ namespace move_generator{
         return moves;
     }
 
-    std::vector<Position> GenerateQueenMoves(Position pos, BoardState board){
+    std::vector<Position> GenerateQueenMoves(Position pos, BoardState const & board){
         std::vector<Position> moves;
         std::vector<Position> bmoves = GenerateBishiopMoves(pos, board);
         std::vector<Position> rmoves = GenerateRookMoves(pos, board);
@@ -294,7 +301,7 @@ namespace move_generator{
         return moves;
     }
 
-    std::vector<Position> GenerateKingMoves(Position pos, BoardState board){
+    std::vector<Position> GenerateKingMoves(Position pos, BoardState const & board){
         std::vector<Position> possibleMoves;
 
         std::pair<signed int, signed int> moveTable[] = {
@@ -304,7 +311,7 @@ namespace move_generator{
             { -1,  -1}, { -1,  -0}
         };
 
-        for(int ii = 0; ii < 9; ii++){
+        for(int ii = 0; ii < 8; ii++){
             Position potentialMove(pos);
             potentialMove.rank += moveTable[ii].first;
             potentialMove.file += moveTable[ii].second;
