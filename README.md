@@ -34,7 +34,7 @@ This will take some time. On tux, the download, build, and scan takes about 5 mi
 The results of the scan gets printed in the root of the repo in a file that has the date and time in the format "YYYYMMDD-HHMM-report.txt"
 
 ### Running the app directly
-If for some reason, you want to invoke the app itself, you need a properly formatted input file, some are furnished for you in the `input/` directory, with `input/example1.txt` being based on the example in the assignment. 
+If for some reason, you want to invoke the app itself, you need a properly formatted input file, one is furnished for you in the `input/` directory, with `input/example1.txt` being based on the example in the assignment. 
 
 First, make the executable available
 >  cmake --build _build --target install
@@ -55,7 +55,7 @@ The deliverables of the assignment can be found in these locations:
 * Final code coverage report - deliverables/code_cov/index.html
 
 # Changes made after running static analysis
-The code coverage report is in the `deliverables` directory and consists of individual lines of code, annotated with the scanner's reccomendations about what to fix. The report in `deliverables` is much longer than what you might see running the static scanner now, as it is from an earlier version of the project and the following changes were made:
+The code coverage report is in the `deliverables` directory and consists of individual lines of code, annotated with the scanner's recommendations about what to fix. The report in `deliverables` is much longer than what you might see running the static scanner now, as it is from an earlier version of the project and the following changes were made:
 
 * all the move_generator functions now take the BoardState objects by const reference
 * Fixed the erroneous use of std::remove
@@ -65,6 +65,7 @@ The code coverage report is in the `deliverables` directory and consists of indi
 
 There is a directory in `deliverables` that contains an up to date version of the code coverage report, it should be identical to what you can generate with the `code-cov-report` command above. This coverage report shows line, function, and branch coverage for the assignment. Note that the coverage is only reported for code exercised by the unit tests, `src/main.cpp` contains some logic and a handful of branches that do not appear in this report. They largely handle file input and invoking the main corpus of code.  
 
+The code coverage report is formatted as a series of HTML pages, open `index.html` and browse from there. If you are generating on tux, its recommended to ftp or otherwise download the entire report directory to your local machine from tux and open locally in a browser.
 
 # Assumptions/Limitations
 * The application does not aggressively check input. Putting in illegal positions may still result in output. 

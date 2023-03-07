@@ -189,8 +189,6 @@ TEST(MovementGeneratorTests, PawnBlockedNoMovesBlack) {
   std::vector<Position> moves = move_generator::GeneratePawnMoves(pieceToMove, board);
 
   EXPECT_EQ(moves.size(), 0);
-
-  std::string compiledMoves = board_utils::joinAllMoves( board_utils::movesToStrings(moves));
 }
 
 TEST(MovementGeneratorTests, PawnOtherPositionBlack) {
