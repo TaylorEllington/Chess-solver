@@ -260,8 +260,8 @@ TEST(MovementGeneratorTests, RookCapture) {
   EXPECT_THAT(compiledMoves, HasSubstr("Rxe6"));
   EXPECT_THAT(compiledMoves, HasSubstr("Rxc4"));
   EXPECT_THAT(compiledMoves, HasSubstr("Rxf4"));
-
 }
+
 
 TEST(MovementGeneratorTests, KnightCenterEmptyBoard) {
   Position pieceToMove("Ke4", PieceColor::WHITE);
@@ -351,6 +351,7 @@ TEST(MovementGeneratorTests, BishopCapture) {
   EXPECT_THAT(compiledMoves, HasSubstr("Bxd3"));
   EXPECT_THAT(compiledMoves, HasSubstr("Bxf5"));
 }
+
 
 TEST(MovementGeneratorTests, QueenCenterEmptyBoard) {
   Position pieceToMove("Qe4", PieceColor::WHITE);

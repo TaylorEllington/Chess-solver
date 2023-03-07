@@ -1,1 +1,0 @@
-option(GCC_CODE_COVERAGE "" ON)

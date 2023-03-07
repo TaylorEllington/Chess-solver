@@ -15,7 +15,7 @@ To build the chess solver project and the tests
 
 ### Run Code Coverage
 There are three necessary steps to take first. The code coverage utility requires compile and run time information in order to generate a report. 
-1. Open `BuildOptions.cmake` and make sure the `GCC_CODE_COVERAGE` option is set to `On`
+1. Open `CMakeLists.txt` and make sure the `GCC_CODE_COVERAGE` option is set to `ON` (it should be by default)
 2. Configure and Build as listed above
 3. Run the tests as listed above
 
@@ -51,12 +51,24 @@ The deliverables of the assignment can be found in these locations:
 * Source code - src/
 * Test cases - src/chess-lib-tests.cpp
 * Instructions - This file
-* Static Analysis report and discussion of fixes - deliverables/scan.txt
+* Sample Static Analysis report  - deliverables/20230304-2243-Report.txt
 * Final code coverage report - deliverables/code_cov/index.html
+
+# Changes made after running static analysis
+The code coverage report is in the `deliverables` directory and consists of individual lines of code, annotated with the scanner's reccomendations about what to fix. The report in `deliverables` is much longer than what you might see running the static scanner now, as it is from an earlier version of the project and the following changes were made:
+
+* all the move_generator functions now take the BoardState objects by const reference
+* Fixed the erroneous use of std::remove
+* board_utils moves to strings is now const correct
+
+# Code Coverage Report
+
+There is a directory in `deliverables` that contains an up to date version of the code coverage report, it should be identical to what you can generate with the `code-cov-report` command above. This coverage report shows line, function, and branch coverage for the assignment. Note that the coverage is only reported for code exercised by the unit tests, `src/main.cpp` contains some logic and a handful of branches that do not appear in this report. They largely handle file input and invoking the main corpus of code.  
 
 
 # Assumptions/Limitations
-* The application does not aggressively check input. Putting in illegal positions may still result in output. Putting in malformed input files may result in a crash.
+* The application does not aggressively check input. Putting in illegal positions may still result in output. 
+* Malformed input files may result in a crash.
 * Code coverage only works with GCC compilers
 * Build system has been tested on Tux environment, may not work in environments with heavy customization.
 * Input files will be properly formulated.
